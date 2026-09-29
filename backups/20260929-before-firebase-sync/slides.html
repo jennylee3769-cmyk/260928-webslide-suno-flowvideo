@@ -12,8 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>수노와 Flow로 만드는 나만의 AI 음악 쇼츠 · 수업 슬라이드</title>
-<meta name="description" content="50대 AI 콘텐츠 제작 초보자를 위한 Suno·Flow 음악 쇼츠 실습 슬라이드">
+<title>[강의 제목] 슬라이드</title>
+<meta name="description" content="[강의 제목] 수업 슬라이드 · [날짜] · 강사 [이름]">
 <meta name="theme-color" content="#111111">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -137,10 +137,6 @@ table.tbl td:first-child{color:var(--sub)}
 #nav button:focus-visible, #nav a:focus-visible{outline:2px solid #FFFFFF;outline-offset:2px}
 #nav .grow{flex:1}
 #counter{font-variant-numeric:tabular-nums;font-weight:800;min-width:5.5em;text-align:center}
-.mode-badge,.conn-badge{border:1px solid #444;border-radius:99px;padding:4px 11px;font-size:12px;font-weight:700;color:#DDDDDD;white-space:nowrap}
-.mode-badge.follow{background:#FFFFFF;color:#111111;border-color:#FFFFFF}
-#nav button[aria-pressed="true"]{background:#FFFFFF;color:#111111}
-#nav [hidden]{display:none!important}
 .hint{color:#9A9A9A;font-size:12.5px}
 #progress{position:fixed;left:0;bottom:var(--nav-h);height:3px;background:#FFFFFF;width:0;z-index:201;transition:width .2s}
 @media (max-width:760px){ #nav .hide-sm{display:none} }
@@ -166,19 +162,6 @@ table.tbl td:first-child{color:var(--sub)}
 
 @media (prefers-reduced-motion:reduce){ #progress{transition:none} }
 
-.fb-banner{position:fixed;left:0;right:0;top:0;z-index:300;background:var(--accent);color:#111111;text-align:center;padding:8px 12px;font-size:14px;font-weight:800}
-.fb-banner[hidden]{display:none}
-.login{position:fixed;inset:0;z-index:600;background:rgba(10,10,10,.82);display:flex;align-items:center;justify-content:center;padding:16px}
-.login[hidden]{display:none}
-.login-box{background:#FFFFFF;color:#111111;border-radius:14px;padding:24px;width:min(360px,100%);display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-lg)}
-.login-box h2{font-size:20px}
-.login-box label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:800}
-.login-box input{font:inherit;border:1px solid #AAAAAA;border-radius:8px;padding:10px 12px;min-height:44px}
-.login-box .row{display:flex;gap:8px}
-.login-box button{font:inherit;font-weight:800;min-height:44px;padding:0 16px;border-radius:8px;border:1px solid #AAAAAA;background:#FFFFFF;cursor:pointer}
-.login-box button.primary{background:#111111;color:#FFFFFF;border-color:#111111}
-.login-box .err{color:#B71C1C;font-size:13px;font-weight:700;min-height:1.2em}
-
 /* PDF: 16:9 페이지 1장 = 슬라이드 1장 */
 @page{size:13.333in 7.5in;margin:0}
 @media print{
@@ -188,14 +171,10 @@ table.tbl td:first-child{color:var(--sub)}
   #stage > .slide{position:relative!important;display:flex!important;width:13.333in;height:7.5in;
     break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   #stage > .slide:last-child{break-after:auto;page-break-after:auto}
-  html.no-pdf #stage{display:none!important}
-  html.no-pdf body::before{content:"PDF 저장 비활성화 · 강사에게 문의";display:block;padding:2rem;font-size:14pt;color:#000000}
 }
 </style>
 </head>
 <body>
-
-<div id="fbBanner" class="fb-banner" hidden>Firebase 설정 전 · 자유 열람 모드</div>
 
 <main id="stage">
 
@@ -438,13 +417,8 @@ table.tbl td:first-child{color:var(--sub)}
   <button type="button" id="navPrev" aria-label="이전 슬라이드">◀</button>
   <span id="counter" aria-live="polite">1 / 8</span>
   <button type="button" id="navNext" aria-label="다음 슬라이드">▶</button>
-  <span id="modeBadge" class="mode-badge">자유 열람</span>
-  <span id="connBadge" class="conn-badge" hidden></span>
   <span class="grow"></span>
   <span class="hint hide-sm">← → 이동 · G 전체보기 · P PDF</span>
-  <button type="button" id="lockBtn" hidden>🔒 잠금 중</button>
-  <button type="button" id="pdfBtn" hidden>PDF 허용 중</button>
-  <button type="button" id="logoutBtn" hidden>로그아웃</button>
   <button type="button" id="gridBtn" aria-haspopup="dialog" aria-controls="gridOverlay">▦ 전체 보기</button>
   <button type="button" id="printBtn" class="hide-sm">⎙ PDF 저장</button>
 </nav>
@@ -454,20 +428,10 @@ table.tbl td:first-child{color:var(--sub)}
   <div class="grid-list" id="gridList"></div>
 </div>
 
-<div class="login" id="login" hidden role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-  <form class="login-box" id="loginForm">
-    <h2 id="loginTitle">강사 로그인</h2>
-    <label>이메일<input id="lgEmail" type="email" autocomplete="username" required></label>
-    <label>비밀번호<input id="lgPw" type="password" autocomplete="current-password" required></label>
-    <p class="err" id="lgErr" role="alert"></p>
-    <div class="row"><button type="submit" class="primary">로그인</button><button type="button" id="lgClose">닫기</button></div>
-  </form>
-</div>
-
 <script>
 (function(){
   /* ▼ 내 강의 고유 접두사로 변경 (예: 'ai0927_') */
-  var LS = 'sunoFlow0929_';
+  var LS = 'mykit_';
 
   var stage = document.getElementById('stage');
   var slides = Array.prototype.slice.call(stage.querySelectorAll(':scope > section.slide'));
@@ -496,9 +460,6 @@ table.tbl td:first-child{color:var(--sub)}
   var gridList = document.getElementById('gridList');
   var minis = [];
   var lastFocus = null;
-  var navAllowed = true;
-  var pdfAllowed = true;
-  var onNavigate = null;
 
   function show(i){
     idx = Math.max(0, Math.min(total - 1, i));
@@ -508,25 +469,10 @@ table.tbl td:first-child{color:var(--sub)}
     });
     progressEl.style.width = ((idx + 1) / total * 100) + '%';
     counterEl.textContent = (idx + 1) + ' / ' + total;
-    navPrev.disabled = !navAllowed || idx === 0;
-    navNext.disabled = !navAllowed || idx === total - 1;
+    navPrev.disabled = idx === 0;
+    navNext.disabled = idx === total - 1;
     minis.forEach(function(m, n){ m.classList.toggle('current', n === idx); });
     lsSet(STORAGE_KEY, String(idx));
-  }
-
-  function navigate(i){
-    if (!navAllowed) return;
-    show(i);
-    if (onNavigate) onNavigate(idx);
-  }
-
-  function setPolicy(policy){
-    navAllowed = policy.nav !== false;
-    pdfAllowed = policy.pdf !== false;
-    document.getElementById('printBtn').style.display = pdfAllowed ? '' : 'none';
-    document.documentElement.classList.toggle('no-pdf', !pdfAllowed);
-    document.querySelector('#nav .hint').textContent = pdfAllowed ? '← → 이동 · G 전체보기 · P PDF' : '← → 이동 · G 전체보기';
-    show(idx);
   }
 
   function scaleMinis(){
@@ -555,25 +501,25 @@ table.tbl td:first-child{color:var(--sub)}
     /* 버튼에 포커스가 있을 때 스페이스·엔터는 버튼 동작에 양보 */
     var onButton = t && t.closest && t.closest('button, a');
     if ((e.key === ' ' || e.key === 'Enter') && onButton) return;
-    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); navigate(idx + 1); }
-    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); navigate(idx - 1); }
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(idx + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(idx - 1); }
     else if (e.key === 'g' || e.key === 'G' || e.key === 'ㅎ') { openGrid(); }
-    else if (e.key === 'p' || e.key === 'P' || e.key === 'ㅔ') { e.preventDefault(); if (pdfAllowed) window.print(); }
-    else if (e.key === 'Home') { navigate(0); }
-    else if (e.key === 'End') { navigate(total - 1); }
+    else if (e.key === 'p' || e.key === 'P' || e.key === 'ㅔ') { e.preventDefault(); window.print(); }
+    else if (e.key === 'Home') { show(0); }
+    else if (e.key === 'End') { show(total - 1); }
   });
 
   /* 무대 클릭: 오른쪽 절반 다음 · 왼쪽 절반 이전 (버튼·링크·프롬프트 카드 제외) */
   stage.addEventListener('click', function(e){
     if (e.target.closest('button, a, .prompt-card')) return;
     var rect = stage.getBoundingClientRect();
-    if (e.clientX - rect.left > rect.width / 2) navigate(idx + 1); else navigate(idx - 1);
+    if (e.clientX - rect.left > rect.width / 2) show(idx + 1); else show(idx - 1);
   });
-  navPrev.addEventListener('click', function(){ navigate(idx - 1); });
-  navNext.addEventListener('click', function(){ navigate(idx + 1); });
+  navPrev.addEventListener('click', function(){ show(idx - 1); });
+  navNext.addEventListener('click', function(){ show(idx + 1); });
   document.getElementById('gridBtn').addEventListener('click', openGrid);
   document.getElementById('gridClose').addEventListener('click', closeGrid);
-  document.getElementById('printBtn').addEventListener('click', function(){ if (pdfAllowed) window.print(); });
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
 
   /* 타이머: 벽시계 기준 (탭이 뒤로 가도 시간이 밀리지 않음) */
   function initTimer(el){
@@ -686,21 +632,13 @@ table.tbl td:first-child{color:var(--sub)}
     inner.appendChild(copy);
     mini.appendChild(inner);
     mini.appendChild(num);
-    mini.addEventListener('click', function(){ navigate(n); closeGrid(); });
-    mini.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(n); closeGrid(); } });
+    mini.addEventListener('click', function(){ show(n); closeGrid(); });
+    mini.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(n); closeGrid(); } });
     gridList.appendChild(mini);
     minis.push(mini);
   });
-  window.SLIDE_APP = {
-    showRemote: show,
-    setPolicy: setPolicy,
-    getIndex: function(){ return idx; },
-    setNavigateHandler: function(fn){ onNavigate = fn; }
-  };
   show(idx);
 })();
 </script>
-<script src="firebase/firebase-config.js"></script>
-<script type="module" src="firebase/slides-sync-init.js"></script>
 </body>
 </html>

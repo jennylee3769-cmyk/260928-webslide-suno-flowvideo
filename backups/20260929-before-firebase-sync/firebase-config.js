@@ -10,4 +10,4 @@ window.FIREBASE_CONFIG = {
 };
 
 /* 강의마다 다른 이름 - 같은 프로젝트로 여러 강의 운영 가능 (영문·숫자·하이픈) */
-window.DECK_ID = 'suno-flow-shorts-0929';
+window.DECK_ID = 'my-lecture-0927';

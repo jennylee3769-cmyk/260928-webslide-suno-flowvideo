@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>관리자 제어판 · 수노와 Flow로 만드는 나만의 AI 음악 쇼츠</title>
+<title>관리자 제어판 · [강의 제목]</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#111111">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
@@ -92,13 +92,6 @@ td.act{text-align:right;white-space:nowrap}
 .stars{letter-spacing:.05em}
 .addrow input{flex:1;min-width:8rem;min-height:44px;border:1.5px solid var(--line);border-radius:.5rem;padding:0 .7rem;background:var(--paper)}
 .addrow input:focus-visible{border-color:var(--ink)}
-.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
-.metric{background:var(--soft);border-radius:.6rem;padding:.75rem;display:flex;flex-direction:column;gap:.1rem}
-.metric b{font-size:1.35rem;font-weight:900}.metric span{font-size:.78rem;color:var(--sub);font-weight:700}
-.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem}
-.check{display:flex;align-items:center;gap:.55rem;min-height:44px;padding:.55rem .7rem;border:1px solid var(--line);border-radius:.55rem;background:var(--paper)}
-.check input{width:20px;height:20px;accent-color:var(--ink)}
-@media (max-width:520px){.metric-grid,.check-grid{grid-template-columns:1fr}}
 
 #status{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:99px;padding:.5rem 1.1rem;
   font-size:.9rem;font-weight:800;opacity:0;pointer-events:none;transition:opacity .2s}
@@ -122,7 +115,7 @@ td.act{text-align:right;white-space:nowrap}
 <!-- ============ 로그인 게이트 (데모 전용 · 보안 아님) ============ -->
 <div id="gate">
   <form id="gateForm" autocomplete="off">
-    <h1>AI 음악 쇼츠 관리자 <span class="demo-badge">데모</span></h1>
+    <h1>관리자 제어판 <span class="demo-badge">데모</span></h1>
     <p class="warn-box">데모 전용 잠금 · 실제 보안 아님 · 비밀번호가 소스에 그대로 보임 · 실제 운영은 stats.php 의 check_admin 으로 교체</p>
     <label for="pw">비밀번호 (데모: 1234)</label>
     <!-- 서버 연결 지점: stats.php action=check_admin (POST pw) → { ok: true } 일 때만 입장 -->
@@ -146,21 +139,7 @@ td.act{text-align:right;white-space:nowrap}
 
   <main class="grid">
 
-    <!-- ① 연결 상태 · 실제 서버 연결 지점: Firebase .info/connected 와 decks/{deckId}/viewers 구독 -->
-    <section class="card" aria-labelledby="hConn">
-      <h2 id="hConn">연결 상태</h2>
-      <div class="metric-grid"><div class="metric"><b id="connText">연결</b><span>목업 상태</span></div><div class="metric"><b id="viewerCount">10명</b><span>예상 학습자</span></div><div class="metric"><b>5팀</b><span>2명씩 운영</span></div></div>
-      <button type="button" class="btn ghost" id="refreshConn">상태 새로고침</button>
-    </section>
-
-    <!-- ② 수업 시작 · 실제 서버 연결 지점: decks/{deckId}/state.started, startedAt 저장 -->
-    <section class="card" aria-labelledby="hStart">
-      <h2 id="hStart">수업 시작</h2>
-      <p class="note" id="startState">시작 전</p>
-      <div class="row"><button type="button" class="btn" id="startClass">수업 시작</button><button type="button" class="btn ghost" id="firstSlide">처음으로</button></div>
-    </section>
-
-    <!-- ③ 진행 제어 -->
+    <!-- ① 진행 제어 -->
     <section class="card wide" aria-labelledby="hProg">
       <h2 id="hProg">진행 제어</h2>
       <div class="now" aria-live="polite">
@@ -175,7 +154,7 @@ td.act{text-align:right;white-space:nowrap}
       <p class="note">점선 번호 = 휴식 슬라이드 · TITLES 배열은 slides.html 의 aria-label 과 같은 순서로 유지</p>
     </section>
 
-    <!-- ④ 정책 스위치 -->
+    <!-- ② 정책 스위치 -->
     <section class="card" aria-labelledby="hPolicy">
       <h2 id="hPolicy">잠금 · PDF</h2>
       <!-- 서버 연결 지점: stats.php action=set_lock (POST pw, value=1|0) -->
@@ -192,7 +171,7 @@ td.act{text-align:right;white-space:nowrap}
       </div>
     </section>
 
-    <!-- ⑤ 공용 타이머 -->
+    <!-- ③ 공용 타이머 -->
     <section class="card" aria-labelledby="hTimer">
       <h2 id="hTimer">공용 타이머</h2>
       <div class="row">
@@ -213,33 +192,7 @@ td.act{text-align:right;white-space:nowrap}
       </div>
     </section>
 
-    <!-- ⑥ 팀별 실습 · 실제 서버 연결 지점: teams/{teamId}/status, updatedAt 저장 -->
-    <section class="card wide" aria-labelledby="hTeams">
-      <h2 id="hTeams">팀별 실습 <span class="note" id="teamCount"></span></h2>
-      <div class="check-grid" id="teamGrid"></div>
-    </section>
-
-    <!-- ⑦ 자료 공개 · 실제 서버 연결 지점: resources/{resourceId}/visible, publishedAt 저장 -->
-    <section class="card" aria-labelledby="hResources">
-      <h2 id="hResources">자료 공개</h2>
-      <div class="switchrow"><p id="swVideoDesc"><b>강사 완성 영상</b>완성 예시 공개</p><div class="sw-wrap"><span class="sw-state" id="swVideoState">OFF</span><div class="switch" id="swVideo" role="switch" aria-checked="false" tabindex="0" aria-labelledby="swVideoDesc"></div></div></div>
-      <div class="switchrow"><p id="swSunoDesc"><b>Suno Gem</b>2교시 자료 공개</p><div class="sw-wrap"><span class="sw-state" id="swSunoState">OFF</span><div class="switch" id="swSuno" role="switch" aria-checked="false" tabindex="0" aria-labelledby="swSunoDesc"></div></div></div>
-      <div class="switchrow"><p id="swFlowDesc"><b>Flow Gem</b>3교시 자료 공개</p><div class="sw-wrap"><span class="sw-state" id="swFlowState">OFF</span><div class="switch" id="swFlow" role="switch" aria-checked="false" tabindex="0" aria-labelledby="swFlowDesc"></div></div></div>
-    </section>
-
-    <!-- ⑧ 결과물 확인 · 실제 서버 연결 지점: participants/{id}/deliverables 와 youtubeUrl 저장 -->
-    <section class="card" aria-labelledby="hResults">
-      <h2 id="hResults">결과물 확인</h2>
-      <div class="check-grid" id="resultGrid"></div>
-    </section>
-
-    <!-- ⑨ 질문 관리 · 실제 서버 연결 지점: questions/{id}/status 저장 -->
-    <section class="card wide" aria-labelledby="hQuestions">
-      <h2 id="hQuestions">질문 관리 <span class="note" id="qCount"></span></h2>
-      <table><thead><tr><th scope="col">팀</th><th scope="col">질문</th><th scope="col" style="text-align:right">상태</th></tr></thead><tbody id="qBody"></tbody></table>
-    </section>
-
-    <!-- ⑩ 후기: 관리자 화면은 실명 · 공개 화면은 이름을 서버 응답에서 제외 -->
+    <!-- ④ 후기: 관리자 화면은 실명 · 공개 화면(랜딩)은 이름을 서버 응답에서 빼고 내보냄 (무기명 원칙) -->
     <section class="card wide" aria-labelledby="hReview">
       <h2 id="hReview">후기 <span class="note" id="rvCount"></span></h2>
       <!-- 서버 연결 지점: stats.php action=review_list (관리자, 실명 포함) · action=review_pub (POST pw, id, value=1|0) -->
@@ -250,7 +203,7 @@ td.act{text-align:right;white-space:nowrap}
       <p class="note">공개는 건별 승인 · 공개된 후기도 랜딩에는 이름 없이 표시</p>
     </section>
 
-    <!-- ⑪ 명단 -->
+    <!-- ⑤ 명단 -->
     <section class="card wide" aria-labelledby="hRoster">
       <h2 id="hRoster">명단 <span class="note" id="rsCount"></span></h2>
       <!-- 서버 연결 지점: stats.php action=roster_list / roster_add (POST pw, name) / roster_remove (POST pw, id) -->
@@ -265,13 +218,6 @@ td.act{text-align:right;white-space:nowrap}
       </form>
     </section>
 
-    <!-- ⑫ 수업 종료 · 실제 서버 연결 지점: state.finished, finishedAt, locked 저장 -->
-    <section class="card wide" aria-labelledby="hFinish">
-      <h2 id="hFinish">수업 종료</h2>
-      <p class="note" id="finishState">진행 중 또는 시작 전</p>
-      <div class="row"><button type="button" class="btn" id="finishClass">수업 종료</button><a class="btn ghost" href="slides.html" target="_blank" rel="noopener">최종 슬라이드 확인</a></div>
-    </section>
-
   </main>
 </div>
 
@@ -280,7 +226,7 @@ td.act{text-align:right;white-space:nowrap}
 <script>
 (function(){
   /* ▼ slides.html 과 같은 접두사로 변경 (예: 'ai0927_') */
-  var LS = 'sunoFlow0929_';
+  var LS = 'mykit_';
   var STATE_KEY = LS + 'admin';       /* 목업 상태 전체를 JSON 한 칸에 저장 */
   var AUTH_KEY = LS + 'admin_ok';     /* 세션 동안만 로그인 유지 */
 
@@ -288,25 +234,14 @@ td.act{text-align:right;white-space:nowrap}
   var DEMO_PW = '1234';
 
   /* slides.html 의 aria-label 순서와 1:1 · 슬라이드 추가·삭제 시 함께 수정 */
-  var TITLES = ['강의 표지','오늘의 완성물','전체 순서','팀 운영','교시 운영','1교시 목표','완성작 감상','결과물 분석','제작 흐름','Suno 화면','노래 주제','노래 분위기','노래 장르','목소리와 빠르기','모방 방지','기획 카드','기획 점검','1교시 확인','휴식','2교시 목표','생성 준비','프롬프트 구조','예시 주제','예시 프롬프트','Gem 활용','입력 문장','가사 프롬프트','스타일 프롬프트','창작 기준','1차 생성','2차 생성','노래 비교','최종 선택','구간 기준','구간 선택','문제 해결','2교시 확인','휴식','3교시 목표','장면 연결','주인공 설정','화면 분위기','제외 요소','세로 화면','대표 이미지','이미지 제작','Gem 활용','공통 프롬프트','장면 1','장면 2','장면 3','일관성 기준','영상 제작','영상 점검','문제 해결','3교시 확인','휴식','4교시 목표','편집 재료','프로젝트 규격','장면 배치','길이 조정','음악 삽입','자막 선정','자막 배치','재생 점검','문제 해결','출력 규격','제목 작성','설명 작성','해시태그 작성','공개 범위','유튜브 업로드','최종 확인','완성작 회고','결과 공유','마침'];
-  var BREAKS = [18, 37, 56];          /* 휴식 슬라이드 인덱스 (0부터) */
+  var TITLES = ['표지', '오늘의 순서', '핵심 정리', '3요소', '프롬프트 비교', '실습 프롬프트', '휴식', '마침'];
+  var BREAKS = [6];                   /* 휴식 슬라이드 인덱스 (0부터) */
   var TOTAL = TITLES.length;
 
   function seed(){
     return {
-      slide: 0, lock: false, pdf: true, video: false, suno: false, flow: false,
-      started: false, startedAt: null, finished: false, finishedAt: null,
+      slide: 0, lock: false, pdf: true,
       timer: { minutes: 10, remaining: 600, endAt: null, running: false },
-      teams: [
-        { id: 't1', name: '1팀', status: '진행 중' }, { id: 't2', name: '2팀', status: '진행 중' },
-        { id: 't3', name: '3팀', status: '도움 필요' }, { id: 't4', name: '4팀', status: '진행 중' },
-        { id: 't5', name: '5팀', status: '완료' }
-      ],
-      deliverables: { song: false, image: false, videos: false, shorts: false, upload: false },
-      questions: [
-        { id: 'q1', team: '3팀', text: 'Flow 영상에서 얼굴이 달라짐', status: '답변 대기' },
-        { id: 'q2', team: '1팀', text: '노래 구간 시작점 확인', status: '답변 완료' }
-      ],
       reviews: [
         { id: 'r1', name: '참가자 1', star: 5, text: '실습 위주라 따라가기 편함', pub: true },
         { id: 'r2', name: '참가자 2', star: 4, text: '프롬프트 복사 버튼이 특히 유용\n다음엔 배포까지 해보고 싶음', pub: false },
@@ -382,20 +317,10 @@ td.act{text-align:right;white-space:nowrap}
   document.getElementById('prevBtn').addEventListener('click', function(){ setSlide(S.slide - 1); });
   document.getElementById('nextBtn').addEventListener('click', function(){ setSlide(S.slide + 1); });
 
-  /* ---------- ② 연결·수업 시작 ---------- */
-  document.getElementById('refreshConn').addEventListener('click', function(){
-    document.getElementById('connText').textContent = '연결'; say('목업 연결 상태 확인');
-  });
-  document.getElementById('startClass').addEventListener('click', function(){
-    S.started = true; S.finished = false; S.startedAt = Date.now(); S.slide = 0;
-    save(); render(); say('수업 시작');
-  });
-  document.getElementById('firstSlide').addEventListener('click', function(){ setSlide(0); });
-
   /* ---------- ② 스위치: 키는 id 에서 파생 (swLock → lock, swPdf → pdf) · 삼항 분기 금지 ---------- */
-  var SWITCH_IDS = ['swLock', 'swPdf', 'swVideo', 'swSuno', 'swFlow'];
+  var SWITCH_IDS = ['swLock', 'swPdf'];
   function switchKey(id){ return id.replace(/^sw/, '').toLowerCase(); }
-  var SWITCH_LABELS = { lock: '진행 잠금', pdf: 'PDF 저장 허용', video: '완성 영상 공개', suno: 'Suno Gem 공개', flow: 'Flow Gem 공개' };
+  var SWITCH_LABELS = { lock: '진행 잠금', pdf: 'PDF 저장 허용' };
   SWITCH_IDS.forEach(function(id){
     var el = document.getElementById(id);
     var key = switchKey(id);
@@ -448,66 +373,6 @@ td.act{text-align:right;white-space:nowrap}
   document.getElementById('tReset').addEventListener('click', function(){
     S.timer.remaining = S.timer.minutes * 60; S.timer.running = false; S.timer.endAt = null;
     save(); stopTick(); render(); say('리셋');
-  });
-
-  /* ---------- ⑥ 팀별 실습 ---------- */
-  var teamGrid = document.getElementById('teamGrid');
-  function renderTeams(){
-    teamGrid.textContent = '';
-    S.teams.forEach(function(team){
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost';
-      b.textContent = team.name + ' · ' + team.status;
-      b.addEventListener('click', function(){
-        if (team.status === '진행 중') team.status = '도움 필요';
-        else if (team.status === '도움 필요') team.status = '완료';
-        else team.status = '진행 중';
-        save(); render(); say(team.name + ' · ' + team.status);
-      });
-      teamGrid.appendChild(b);
-    });
-    var done = S.teams.filter(function(t){ return t.status === '완료'; }).length;
-    document.getElementById('teamCount').textContent = '완료 ' + done + ' / ' + S.teams.length + '팀';
-  }
-
-  /* ---------- ⑧ 결과물 확인 ---------- */
-  var resultGrid = document.getElementById('resultGrid');
-  var RESULT_LABELS = { song:'Suno 노래 1곡', image:'대표 이미지 1장', videos:'세로 영상 3개', shorts:'쇼츠 MP4 1편', upload:'업로드 링크' };
-  function renderResults(){
-    resultGrid.textContent = '';
-    Object.keys(RESULT_LABELS).forEach(function(key){
-      var label = document.createElement('label'); label.className = 'check';
-      var input = document.createElement('input'); input.type = 'checkbox'; input.checked = !!S.deliverables[key];
-      input.addEventListener('change', function(){ S.deliverables[key] = input.checked; save(); render(); say(RESULT_LABELS[key] + ' ' + (input.checked ? '완료' : '미완료')); });
-      var text = document.createElement('span'); text.textContent = RESULT_LABELS[key];
-      label.appendChild(input); label.appendChild(text); resultGrid.appendChild(label);
-    });
-  }
-
-  /* ---------- ⑨ 질문 관리 ---------- */
-  var qBody = document.getElementById('qBody');
-  function renderQuestions(){
-    qBody.textContent = '';
-    S.questions.forEach(function(q){
-      var tr = document.createElement('tr');
-      var team = document.createElement('td'); team.textContent = q.team;
-      var text = document.createElement('td'); text.textContent = q.text;
-      var act = document.createElement('td'); act.className = 'act';
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'btn ghost'; b.textContent = q.status;
-      b.addEventListener('click', function(){ q.status = q.status === '답변 대기' ? '답변 완료' : '답변 대기'; save(); render(); say(q.team + ' · ' + q.status); });
-      act.appendChild(b); tr.appendChild(team); tr.appendChild(text); tr.appendChild(act); qBody.appendChild(tr);
-    });
-    document.getElementById('qCount').textContent = '대기 ' + S.questions.filter(function(q){ return q.status === '답변 대기'; }).length + '건';
-  }
-
-  /* ---------- ⑫ 수업 종료 ---------- */
-  document.getElementById('finishClass').addEventListener('click', function(){
-    S.finished = true; S.finishedAt = Date.now(); S.lock = false; S.timer.running = false;
-    save(); stopTick(); render(); say('수업 종료 · 잠금 해제');
-  });
-
-  /* 정책 스위치는 관리자도 동일 적용 · PDF OFF 때 Ctrl+P 차단 */
-  document.addEventListener('keydown', function(e){
-    if (!S.pdf && (e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) { e.preventDefault(); say('PDF 저장 차단 중'); }
   });
 
   /* ---------- ④ 후기 ---------- */
@@ -595,14 +460,8 @@ td.act{text-align:right;white-space:nowrap}
       b.setAttribute('aria-pressed', parseInt(b.dataset.min, 10) === S.timer.minutes ? 'true' : 'false');
     });
     renderTimer();
-    renderTeams();
-    renderResults();
-    renderQuestions();
     renderReviews();
     renderRoster();
-    document.getElementById('startState').textContent = S.started ? '수업 진행 중 · 시작 시각 저장' : '시작 전';
-    document.getElementById('finishState').textContent = S.finished ? '수업 종료 · 잠금 해제 완료' : '진행 중 또는 시작 전';
-    document.body.classList.toggle('pdf-blocked', !S.pdf);
   }
 
   if (S.timer.running) startTick();
