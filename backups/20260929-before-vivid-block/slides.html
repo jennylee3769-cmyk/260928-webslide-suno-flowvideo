@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>수노와 Flow로 만드는 나만의 AI 음악 쇼츠 · 수업 슬라이드</title>
 <meta name="description" content="50대 AI 콘텐츠 제작 초보자를 위한 Suno·Flow 음악 쇼츠 실습 슬라이드">
-<meta name="theme-color" content="#2457FF">
+<meta name="theme-color" content="#111111">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -191,38 +191,6 @@ table.tbl td:first-child{color:var(--sub)}
   html.no-pdf #stage{display:none!important}
   html.no-pdf body::before{content:"PDF 저장 비활성화 · 강사에게 문의";display:block;padding:2rem;font-size:14pt;color:#000000}
 }
-
-/* 비비드 블록: 큰 원색 면 + 굵은 검정 윤곽 */
-:root{
-  --ink:#111111; --sub:#343434; --mute:#555555; --line:#111111;
-  --slide-bg:#FFFDF5; --card:#FFFFFF;
-  --accent:#FFE600; --accent-sub:#2D2800;
-  --blue:#2457FF; --coral:#FF4D3D; --cyan:#18D6C7; --pink:#E90072;
-  --shadow:.45cqi .45cqi 0 #111111;
-  --shadow-lg:.7cqi .7cqi 0 #111111;
-  --alert:#D71920;
-}
-.title-slide{background:var(--accent)}
-.slide.dark{background:var(--blue);color:#FFFFFF}
-.slide.dark .lede{color:#FFFFFF}
-.bullets li,.card,table.tbl,.timer-chip{border:.2cqi solid #111111;border-radius:.45cqi}
-.bullets li:nth-child(4n+1),.card-grid .card:nth-child(4n+1){background:#BDEBFF}
-.bullets li:nth-child(4n+2),.card-grid .card:nth-child(4n+2){background:#FFF3A6}
-.bullets li:nth-child(4n+3),.card-grid .card:nth-child(4n+3){background:#FFD2E6}
-.bullets li:nth-child(4n),.card-grid .card:nth-child(4n){background:#B9F4E8}
-.card.bad{background:#FFFFFF}
-.card.good{background:#B9F4E8;border-left:1.1cqi solid var(--blue)}
-table.tbl th{background:var(--blue)}
-table.tbl tr.today td:first-child{box-shadow:inset .65cqi 0 0 var(--coral)}
-.prompt-card{background:var(--pink);color:#FFFFFF;border:.2cqi solid #111111;border-radius:.45cqi}
-.prompt-card .label,.prompt-card blockquote{color:#FFFFFF}
-.prompt-card blockquote{border-left-color:var(--accent)}
-.copy-btn{background:var(--accent);border:.18cqi solid #111111;border-radius:.4cqi}
-.copy-btn:hover,.copy-btn.copied{background:#FFF36A}
-.timer-chip.running{background:var(--blue)}
-.fb-banner{background:var(--accent)}
-#progress{background:var(--accent)}
-.mode-badge.follow,#nav button[aria-pressed="true"]{background:var(--accent);color:#111111;border-color:var(--accent)}
 </style>
 </head>
 <body>
